@@ -1,0 +1,17 @@
+{
+  "code": 200,
+  "message": "Query success",
+  "data": {
+    "certificateNumber": "45",
+    "barcode": "54",
+    "certificateType": "UKof Origin",
+    "applicationDate": "20 M2026",
+    "approvalDate": "26 Mar 2026",
+    "issuingChamberOfCommerce": "Greater Manchester Chamber of Commerce",
+    "applicationRef": "WPLV00008/LP/440",
+    "countryOfOrigin": "United Kingdom",
+    "exporterName": "LEEDS POWER GENERATOR",
+    "generalDescription": "1MODEL: LD110603261118767 BIN NO.: 000060296-0202",
+    "pdfFile": "static/html/h5/pdf/FJ0009762_002872440-Leeds_Power_COO-UK.pdf"
+  }
+}

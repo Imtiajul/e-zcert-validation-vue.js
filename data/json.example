@@ -1,0 +1,18 @@
+{
+  "code": "",
+  "message": "",
+  "data": {
+    "certificateNumber": "",
+    "barcode": "",
+    "certificateType": "",
+    "applicationDate": "",
+    "approvalDate": "",
+    "issuingChamberOfCommerce": "",
+    "applicationRef": "",
+    "countryOfOrigin": "",
+    "exporterName": "",
+    "generalDescription": "",
+    "note": "",
+    "pdfFile": ""
+  }
+}
