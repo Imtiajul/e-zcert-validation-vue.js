@@ -1,6 +1,6 @@
 {
-  "code": "",
-  "message": "",
+  "code": 200,
+  "message": "Query success",
   "data": {
     "certificateNumber": "",
     "barcode": "",
