@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>e-Zcert Security Check | Verify Export Documentation</title>
+    <meta name="description"
+        content="Quickly verify the authenticity of e-Zcert Certificate of Origin and trade documents. Protect international trade against fraudulent certificates.">
+    <meta name="keywords" content="e-zcert, certificate check, security check, verification, certificate of origin">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://e-zcert.uk/">
+    <meta property="og:title" content="e-Zcert Security Check | Verify Export Documentation">
+    <meta property="og:description"
+        content="Quickly verify the authenticity of e-Zcert Certificate of Origin and trade documents. Protect international trade against fraudulent certificates.">
+    <meta property="og:image" content="https://e-zcert.uk/static/html/h5/img/logo.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="https://e-zcert.uk/">
+    <meta name="twitter:title" content="e-Zcert Security Check | Verify Export Documentation">
+    <meta name="twitter:description"
+        content="Quickly verify the authenticity of e-Zcert Certificate of Origin and trade documents.">
+    <meta name="twitter:image" content="https://e-zcert.uk/static/html/h5/img/logo.png">
+
+    <!-- JSON-LD Structured Data (Schema) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "e-Zcert Security Check",
+      "url": "https://e-zcert.uk/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://e-zcert.uk/verify?certificateNumber={certificateNumber}&barcodeNumber={barcodeNumber}"
+        },
+        "query-input": [
+          "required name=certificateNumber",
+          "required name=barcodeNumber"
+        ]
+      }
+    }
+    </script>
+
+    <link href="static/html/h5/css/public.css" rel="stylesheet" type="text/css">
+    <link rel="icon" type="image/x-icon" href="static/html/h5/img/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="96x96" href="static/html/h5/img/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/svg+xml" href="static/html/h5/img/favicon/favicon.svg">
+    <link rel="manifest" href="img/site.webmanifest" />
+    <script src="static/html/h5/js/jquery-1.8.3.min.js"></script>
+    <script src="static/html/h5/js/public.js"></script>
+</head>
+
+<body>
+
+    <div class="mainbox">
+        <div class="logo">
+            <img src="static/html/h5/img/logo.png" alt="e-Zcert Logo">
+            <h2 class="topnr">e-Zcert Security Check</h2>
+        </div>
+        <div class="topimg">
+            <img src="static/html/h5/img/img01.png" alt="Security Banner">
+        </div>
+        <div class="bdbox">
+            <dl>
+                <dd>
+                    <p>Certificate Number</p>
+                </dd>
+                <dt><input type="text" id="certificateNumber" name="certificateNumber" placeholder="e.g.FJ1234567"></dt>
+            </dl>
+            <dl>
+                <dd>
+                    <p>Barcode Number</p>
+                    <span>(Found Under QR BarCode)</span>
+                </dd>
+                <dt><input type="text" id="barcode" name="barcode" placeholder="e.g.002258422"></dt>
+            </dl>
+            <button class="submitbtn" onclick="toResult()">Submit</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Mock layer.js toast notification
+        const layer = {
+            msg: function (text, options) {
+                // Remove any existing toast
+                $(".custom-toast").remove();
+
+                let toast = $("<div class='custom-toast'></div>").text(text);
+                $("body").append(toast);
+
+                setTimeout(function () {
+                    toast.addClass("fade-out");
+                    setTimeout(function () {
+                        toast.remove();
+                    }, 300);
+                }, (options && options.time) || 1000);
+            }
+        };
+
+        function toResult() {
+            let certificateNumber = $.trim($("#certificateNumber").val());
+            let barcode = $.trim($("#barcode").val());
+            if (!certificateNumber || !barcode) {
+                layer.msg("Please enter the query content", { time: 1000 });
+            } else {
+                location.href = "verify?certificateNumber=" + encodeURIComponent(certificateNumber) + "&barcodeNumber=" + encodeURIComponent(barcode);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

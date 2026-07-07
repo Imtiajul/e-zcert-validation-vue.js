@@ -1,0 +1,3 @@
+# Robots.txt - Control search engine crawler behavior
+User-agent: *
+Disallow: /data/

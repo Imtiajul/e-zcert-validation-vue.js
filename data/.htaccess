@@ -1,0 +1,11 @@
+# Disable directory indexing (prevent users from browsing the file list)
+Options -Indexes
+
+# Prevent direct browser access to JSON files in this directory
+RewriteEngine On
+
+# Block direct access if referer is not empty AND does not match e-zcert.* or localhost
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?e-zcert\.[a-z]{2,6} [NC]
+RewriteCond %{HTTP_REFERER} !^https?://localhost [NC]
+RewriteRule \.json$ - [F,L]

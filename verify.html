@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Certificate Validation Result | e-Zcert Security Check</title>
+    <meta name="description" content="View real-time validation status for e-Zcert Certificates of Origin. Confirm document authenticity and check official chamber approval details.">
+    <meta name="keywords" content="e-zcert, validation, result, verification, certificate of origin">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://e-zcert.uk/verify">
+    <meta property="og:title" content="Certificate Validation Result | e-Zcert Security Check">
+    <meta property="og:description" content="View real-time validation status for e-Zcert Certificates of Origin. Confirm document authenticity and check official chamber approval details.">
+    <meta property="og:image" content="https://e-zcert.uk/static/html/h5/img/logo.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="https://e-zcert.uk/verify">
+    <meta name="twitter:title" content="Certificate Validation Result | e-Zcert Security Check">
+    <meta name="twitter:description" content="View real-time validation status for e-Zcert Certificates of Origin. Confirm document authenticity and check official chamber approval details.">
+    <meta name="twitter:image" content="https://e-zcert.uk/static/html/h5/img/logo.png">
+
+    <!-- JSON-LD Structured Data (Schema) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Certificate Validation Result",
+      "description": "Verification result of an international trade Certificate of Origin.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "e-Zcert",
+        "logo": "https://e-zcert.uk/static/html/h5/img/logo.png"
+      }
+    }
+    </script>
+
+    <link href="static/html/h5/css/public.css" rel="stylesheet" type="text/css">
+    <link rel="icon" type="image/x-icon" href="static/html/h5/img/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="96x96" href="static/html/h5/img/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/svg+xml" href="static/html/h5/img/favicon/favicon.svg">
+    <script src="static/html/h5/js/jquery-1.8.3.min.js"></script>
+    <script src="static/html/h5/js/public.js"></script>
+    <script src="static/html/h5/js/vue.min.js"></script>
+</head>
+
+<body>
+
+    <div class="resultbox" id="app">
+        <div class="logo relogo">
+            <img src="static/html/h5/img/logo.png" alt="e-Zcert Logo">
+            <div class="topwa">
+                <h2 class="topnr">e-Zcert Security Check</h2>
+                <span class="nrsm">The results shown are correct at time of check</span>
+            </div>
+        </div>
+        <div class="resultmain">
+            <p class="renr">RESULT: Confirmed Authentic</p>
+            <span class="resp">The authenticity of this document is confirmed with the<br>following details;</span>
+            <div class="bgmian">
+                <dl>
+                    <dd>Certificate No.</dd>
+                    <dt id="c_no">{{resultModel.certificateNumber}}</dt>
+                </dl>
+                <dl>
+                    <dd>Barcode</dd>
+                    <dt id="c_bar">{{resultModel.barcode}}</dt>
+                </dl>
+                <dl>
+                    <dd>Certificate Type</dd>
+                    <dt id="c_type">{{resultModel.certificateType}}</dt>
+                </dl>
+                <dl>
+                    <dd>Date of Application</dd>
+                    <dt id="c_app">{{resultModel.applicationDate}}</dt>
+                </dl>
+                <dl>
+                    <dd>Date of Approval</dd>
+                    <dt id="c_apr">{{resultModel.approvalDate}}</dt>
+                </dl>
+                <dl>
+                    <dd>Issuing Chamber of Commerce</dd>
+                    <dt id="c_cham">{{resultModel.issuingChamberOfCommerce}}</dt>
+                </dl>
+                <dl>
+                    <dd>Application Ref.</dd>
+                    <dt id="c_ref">{{resultModel.applicationRef}}</dt>
+                </dl>
+                <dl>
+                    <dd>Country of Origin</dd>
+                    <dt id="c_orig">{{resultModel.countryOfOrigin}}</dt>
+                </dl>
+                <dl>
+                    <dd>Exporter Name</dd>
+                    <dt id="c_exp">{{resultModel.exporterName}}</dt>
+                </dl>
+                <dl>
+                    <dd>General Description<br>(Description of Goods)</dd>
+                    <dt id="c_desc">{{resultModel.generalDescription}}</dt>
+                </dl>
+                <dl>
+                    <dd>NOTE:</dd>
+                    <dt id="c_note">{{resultModel.note}}</dt>
+                </dl>
+                <div class="buttonbox">
+                    <button class="viewbtn" onclick="javascript:location.href='mailto:verify@e-zcert.uk'">Report
+                        Fraud</button>
+                    <button class="viewbtn" @click="showPdf">View PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Mock layer.js toast notification
+        const layer = {
+            msg: function (text, options) {
+                $(".custom-toast").remove();
+                let toast = $("<div class='custom-toast'></div>").text(text);
+                $("body").append(toast);
+                setTimeout(function () {
+                    toast.addClass("fade-out");
+                    setTimeout(function () {
+                        toast.remove();
+                    }, 300);
+                }, (options && options.time) || 1000);
+            }
+        };
+
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                resultModel: {
+                    certificateNumber: '',
+                    barcode: '',
+                    certificateType: '',
+                    applicationDate: '',
+                    approvalDate: '',
+                    issuingChamberOfCommerce: '',
+                    applicationRef: '',
+                    countryOfOrigin: '',
+                    exporterName: '',
+                    generalDescription: '',
+                    note: '',
+                    pdfFile: ''
+                },
+            },
+            beforeMount: function () {
+                let that = this;
+                that.queryResult();
+            },
+            methods: {
+                queryResult() {
+                    let that = this;
+                    let paramsMap = that.getParams();
+                    let certificateNumber = paramsMap.get("certificateNumber");
+                    let barcode = paramsMap.get("barcodeNumber");
+
+                    if (barcode && certificateNumber) {
+                        let fileUrl = "data/" + encodeURIComponent(certificateNumber) + "_" + encodeURIComponent(barcode) + ".json?_t=" + new Date().getTime();
+
+                        $.ajax({
+                            type: "get",
+                            dataType: "json",
+                            url: fileUrl,
+                            success: function (response) {
+                                if (response && response.data) {
+                                    that.resultModel = response.data;
+
+                                    // Vanilla JS rendering backup (solves headless rendering/scraping issues)
+                                    $("#c_no").text(response.data.certificateNumber || "");
+                                    $("#c_bar").text(response.data.barcode || "");
+                                    $("#c_type").text(response.data.certificateType || "");
+                                    $("#c_app").text(response.data.applicationDate || "");
+                                    $("#c_apr").text(response.data.approvalDate || "");
+                                    $("#c_cham").text(response.data.issuingChamberOfCommerce || "");
+                                    $("#c_ref").text(response.data.applicationRef || "");
+                                    $("#c_orig").text(response.data.countryOfOrigin || "");
+                                    $("#c_exp").text(response.data.exporterName || "");
+                                    $("#c_desc").html(response.data.generalDescription || "");
+                                    $("#c_note").text(response.data.note || "");
+
+                                    layer.msg(response.message || "Query success", { time: 1000 });
+                                } else {
+                                    layer.msg("Data not found", { time: 1000 });
+                                }
+                            },
+                            error: function () {
+                                layer.msg("Data not found", { time: 1000 });
+                            }
+                        });
+                    } else {
+                        location.href = "index.html";
+                    }
+                },
+                getParams() {
+                    let search = window.location.search;
+                    let paramsMap = new Map();
+                    if (search && search.length > 1) {
+                        let pairs = search.substring(1).split("&");
+                        for (let i = 0; i < pairs.length; i++) {
+                            let pair = pairs[i].split("=");
+                            if (pair.length >= 2) {
+                                paramsMap.set(decodeURIComponent(pair[0]), decodeURIComponent(pair[1]));
+                            }
+                        }
+                    }
+                    return paramsMap;
+                },
+                showPdf() {
+                    if (this.resultModel.pdfFile) {
+                        location.href = this.resultModel.pdfFile;
+                    } else {
+                        layer.msg("Data not found", { time: 1000 });
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

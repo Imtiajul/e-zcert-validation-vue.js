@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Redirect direct requests for verify.html to extensionless /verify
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /verify\.html[?\ ] [NC]
+RewriteRule ^verify\.html$ verify [R=301,L,QSA]
+
+# Internally map extensionless /verify back to verify.html
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^verify$ verify.html [L]
