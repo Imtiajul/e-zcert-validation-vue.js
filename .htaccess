@@ -8,3 +8,25 @@ RewriteRule ^verify\.html$ verify [R=301,L,QSA]
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^verify$ verify.html [L]
+
+# Enable caching for static assets (images, CSS, JS) for 7 days (604800 seconds)
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 7 days"
+    ExpiresByType application/javascript "access plus 7 days"
+    ExpiresByType text/javascript "access plus 7 days"
+    ExpiresByType image/jpeg "access plus 7 days"
+    ExpiresByType image/jpg "access plus 7 days"
+    ExpiresByType image/png "access plus 7 days"
+    ExpiresByType image/gif "access plus 7 days"
+    ExpiresByType image/svg+xml "access plus 7 days"
+    ExpiresByType image/x-icon "access plus 7 days"
+    ExpiresByType image/vnd.microsoft.icon "access plus 7 days"
+</IfModule>
+
+<FilesMatch "\.(css|js|jpe?g|png|gif|svg|ico)$">
+    <IfModule mod_headers.c>
+        Header set Cache-Control "max-age=604800, public"
+    </IfModule>
+</FilesMatch>
+
